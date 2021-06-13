@@ -55,6 +55,17 @@ for a way to "productionize" them, Pachyderm can make this easy for you.
 - Incremental Processing: Pachyderm understands how your data has changed and
   is smart enough to only process the new data
   
+##
+
+```
+transformers==4.6.1
+flask==2.0.1
+pysqlite3
+psycopg2-binary
+pytest==6.2.2
+pandas
+google-cloud-storage
+```
 
 ## Environment variables and scripts that need to be in place 
 

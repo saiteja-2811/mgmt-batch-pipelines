@@ -2,7 +2,7 @@
 
 This repo contains the master solution for Assignment #4 in the Summer 2021 edition of MGMT 590 (Production Scale Data Products) at Purdue University. Specifically, this repo includes code and config for running a Bacth Pipeline using Dockerhub and Pachyderm for question answering using pre-trained models from [Hugging Face Transformers](https://huggingface.co/models).
 
-##Overview 
+## Overview / Architecture
 
 ![architecture](./images/K8.png)
 
@@ -10,19 +10,9 @@ We are using our Laptop/Cloud Shell to push our code Github which is version con
 
 We also have a Cloud SQL instance of POSTGRES for our CRUD operations on flask and streamlit. There's also a container Registry which contains the images of our buid deploys.The github actions workflow for Batch Pipelines builds and deploys to DockerHub instead of Google cloud. We're using Pachyderm Hub to host Pachyderm and Kubernetes Cluster.
 
-In our assignment we are going to have a GCS(Google Cloud Storage), which is going to have .csv files stored and these csv will be put in by our REST API by a new route /uploads  allowing a user to upload a CSV file with a column of questions and a column of contexts. This CSV file should be pushed by the REST API into a GCS bucket (where your Pachyderm pipeline will read it in for processing). The new route should return a 200 OK code and a message to the user indicating that it successfully pushed the file to the GCS bucket
-
-
-##Architeture
+In our assignment we are going to have a GCS(Google Cloud Storage), which is going to have .csv files stored and these csv will be put in by our REST API by a new route /uploads  allowing a user to upload a CSV file with a column of questions and a column of contexts. This CSV file should be pushed by the REST API into a GCS bucket (where your Pachyderm pipeline will read it in for processing). The new route should return a 200 OK code and a message to the user indicating that it successfully pushed the file to the GCS bucket.
 
 ![architecture](./images/architect.png)
-
-We are using our Laptop/Cloud Shell to push our code Github which is version controlled and contains the repositories corresponding to our REST API,Web App(These were a part of of our assignment 3), additionally which we have included a Batch processing Pipeline Repo. The REST API and Web App are triggred via github actions workflow and build and deployed to Google cloud Run. 
-
-We also have a Cloud SQL instance of POSTGRES for our CRUD operations on flask and streamlit. There's also a container Registry which contains the images of our buid deploys.The github actions workflow for Batch Pipelines builds and deploys to DockerHub instead of Google cloud. We're using Pachyderm Hub to host Pachyderm and Kubernetes Cluster.
-
-In our assignment we are going to have a GCS(Google Cloud Storage), which is going to have .csv files stored and these csv will be put in by our REST API by a new route /uploads  allowing a user to upload a CSV file with a column of questions and a column of contexts. This CSV file should be pushed by the REST API into a GCS bucket (where your Pachyderm pipeline will read it in for processing). The new route should return a 200 OK code and a message to the user indicating that it successfully pushed the file to the GCS bucket
-
 
 # Docker Hub
 

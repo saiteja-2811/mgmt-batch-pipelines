@@ -48,13 +48,20 @@ for a way to ```productionize``` them, Pachyderm can make this easy for you.
 ## Requirements
 
 ```
-transformers==4.6.1
-flask==2.0.1
-pysqlite3
-psycopg2-binary
-pytest==6.2.2
-pandas == 
-google-cloud-storage
+Flask==1.1.2
+transformers[torch]==4.2.2
+requests==2.25.1
+streamlit==0.82.0
+pandas==1.1.5
+pytest==6.2.4
+freezegun==1.1.0
+mock==4.0.3
+pg8000==1.19.5
+SQLAlchemy==1.4.17
+psycopg2-binary==2.8.6
+pybase64==1.1.4
+google-cloud-storage==1.38.0
+
 ```
 
 ## Environment variables and scripts that need to be in place 

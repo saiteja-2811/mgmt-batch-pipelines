@@ -1,3 +1,4 @@
+# Import Libraries
 import time
 import os
 import stat
@@ -8,6 +9,7 @@ import pandas as pd
 import base64
 import shutil
 
+# Function to insert records into the cloud SQL database
 def insert_records (conn, question, answer, context, model_name):
     #create an sql cursor for execution of sql queries    
     cur = conn.cursor()
@@ -25,6 +27,7 @@ def insert_records (conn, question, answer, context, model_name):
     #return the timestamp of insertion of record in table to show as output
     return timestamp
 
+# Create the Database Connection
 def create_connection (dbconnect):
     conn = None
     try:
@@ -33,32 +36,37 @@ def create_connection (dbconnect):
         print("Connection created to Postgres")
     except Error as e:
         print(e)
-    
     return conn
     
-
+# Run this by default when this python file is executed
 if __name__ == '__main__':
 
+    # SSL Authetication Steps
+
+    # Create a directory to store the files
     sslmode="sslmode=verify-ca"
-    
     if not os.path.exists('.ssl'):
         os.makedirs('.ssl')
-    
+
+    # Step 1
     filecontents = os.environ.get('PG_SSLROOTCERT')
     decoded_sslrootcert = base64.b64decode(filecontents)
     with open('.ssl/server-ca.pem', 'wb') as f:
         f.write(decoded_sslrootcert)
-    
+
+    # Step 2
     filecontents = os.environ.get('PG_SSLCLIENT_CERT')
     decoded_sslclientcert = base64.b64decode(filecontents)
     with open('.ssl/client-cert.pem', 'wb') as f:
         f.write(decoded_sslclientcert)
-    
+
+    # Step 3
     filecontents = os.environ.get('PG_SSL_CLIENT_KEY')
     decoded_sslclientkey = base64.b64decode(filecontents)
     with open('.ssl/client-key.pem', 'wb') as f:
         f.write(decoded_sslclientkey)
-           
+
+    # Provide authentication to these files
     os.chmod(".ssl/server-ca.pem", 0o600)
     os.chmod(".ssl/client-cert.pem", 0o600)
     os.chmod(".ssl/client-key.pem", 0o600)
@@ -71,7 +79,8 @@ if __name__ == '__main__':
     sslrootcert="sslrootcert=.ssl/server-ca.pem"
     sslcert="sslcert=.ssl/client-cert.pem"
     sslkey="sslkey=.ssl/client-key.pem"
-    
+
+    # String to connect to the DataBase
     dbconnect = " ".join([
     sslmode,
     sslrootcert,

@@ -1,3 +1,4 @@
+# Importing the libraries
 import pandas as pd
 import os
 import io
@@ -7,6 +8,7 @@ import logging
 from google.cloud import storage
 from transformers.pipelines import pipeline
 
+# Hugging face model details - Default model in the API
 hg_comp = pipeline('question-answering', model="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased-distilled-squad")
 
 # function to read file from input directory
@@ -32,16 +34,18 @@ def question_answer(fileName, data):
     timestamp = str(int(time.time()))
     print("writing file to location")
     df_final.to_csv("/pfs/out/question_answer_"+timestamp+".csv", index=False, header=True,  encoding="utf-8")
-    
+
+# Run this by default when this python file is executed
 if __name__ == '__main__':
 
+    # Get the details of the GCS bucket
     bucket_name = os.environ.get('STORAGE_BUCKET')
     print("bucket_name")
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(bucket_name)
     print("Downloading Files")
     files = bucket.list_blobs()
-    
+    # Iterate through the files
     fileList = [file.name for file in files if '.' in file.name]
     for fileName in fileList:
         print("Inside the File List Loop")
